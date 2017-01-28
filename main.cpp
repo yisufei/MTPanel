@@ -135,7 +135,7 @@ int main() {
     */
     
     char szLUA_PATH[2048];
-    sprintf(szLUA_PATH, "%s;%s;%s", getenv("LUA_PATH"), "./lua/?.lua", "./conf/?.lua");
+    sprintf(szLUA_PATH, "%s;%s;%s;%s;%s", getenv("LUA_PATH"), "./lua/?.lua", "./conf/?.lua", "./lib/?.lua", "./lib/?.so");
     setenv("LUA_PATH", szLUA_PATH, 1);
     //printf("lua_path:%s\n", getenv("LUA_PATH"));
 

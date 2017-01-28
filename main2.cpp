@@ -36,7 +36,7 @@ bool getValue(lua_State *L, const char* lpszTableName, const char* lpszTableItem
     return 0;
 }
 
-int main(int argc, char * argv[]){
+int main2(int argc, char * argv[]){
     const char *filename = argc == 2? argv[1]: "./conf/basic.lua";
 
     //lua_State *L = lua_open();

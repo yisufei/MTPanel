@@ -2,7 +2,8 @@
 require('util')
 local LMessageBase = require('LMessageBase')
 local LFixedLen = require('LFixedLen')
-local MTSql = require('MTSql')
+--local MTSql = require('MTSql')
+local MTSql = {}
 
 local P = {msgOp = nil}
 
@@ -26,7 +27,7 @@ function P:businessLogic(req)
     req['RspCod'] = '0000'
     req['RspMsg'] = 'succ'
     
-    local dbOp = MTSql:new()
+    --[=[local dbOp = MTSql:new()
     dbOp:open('./db/demo.db')
     local t, str = dbOp:select("select * from user where BDOAC221 = '"..req['BDRAC22'].."'")
     dbOp:close()
@@ -34,7 +35,7 @@ function P:businessLogic(req)
     --displayTable(t)
     --print(str)
     extend(req, t[1])
-    --displayTable(req)
+    --displayTable(req)]=]
     return req
 end
 

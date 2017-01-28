@@ -1,8 +1,6 @@
 #include "LoadLua.h"
 #include <string>
 
-lua_State * CLoadLua::m_pL = NULL;
-
 CLoadLua::CLoadLua(const char* file)
 {
 	snprintf(m_sFileName, sizeof(m_sFileName), "%s", file);
@@ -10,7 +8,6 @@ CLoadLua::CLoadLua(const char* file)
 
 bool CLoadLua::init()
 {
-    if (m_pL != NULL) return true;
 	m_pL = luaL_newstate();
 	if (m_pL == NULL)	{ return false; }
 
@@ -44,7 +41,7 @@ bool CLoadLua::call(const char* pFunc, void *args, void* rst){
     lua_pushstring(m_pL, (const char*)args);
     iRet = lua_pcall(m_pL, 1, 1, 0);
     if (iRet){
-        printf("error here 3333333\n");
+        //printf("error here 3333333\n");
         sprintf((char*)rst, lua_tostring(m_pL, -1));
         return false;
     }

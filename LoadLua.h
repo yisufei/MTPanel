@@ -18,7 +18,7 @@ public:
 private:
 	char		m_sFileName[128];
 public:
-	static lua_State	*m_pL;
+	lua_State	*m_pL;
 };
 
 #endif

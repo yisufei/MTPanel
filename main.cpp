@@ -48,8 +48,9 @@ bool init_logger(const char * ps = "./conf/log4cpp.conf") {
 	}
 	catch (log4cpp::ConfigureFailure& f) {
 		std::cout << "configure problem: " << f.what() << std::endl;
-		return -1;
+		return false;
 	}
+	return true;
 }
 
 void free_MT_rsp(MT_rsp_t* rsp) {		//MTPanel request object

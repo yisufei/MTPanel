@@ -23,7 +23,7 @@
 uv_loop_t *loop;
 struct sockaddr_in addr;
 
-typedef std::map<std::string, int> MT_THREAD_KEY;
+typedef std::map<std::string, uv_key_t* > MT_THREAD_KEY;
 
 struct MT_req_t {
 	uv_buf_t			buf;
@@ -92,13 +92,13 @@ void setLuaPath(){
 #endif
 
 uv_key_t get_uv_key(const char* p) {
-	uv_key_t key;
 	static MT_THREAD_KEY thread_key;
 	if (thread_key.find(p) == thread_key.end()) {
-		thread_key[p] = thread_key.size() + 1;
+		uv_key_t * key = (uv_key_t *)malloc(sizeof(uv_key_t));
+		uv_key_create(key);
+		thread_key[p] = key;
 	}
-	key.tls_index = thread_key[p];
-	return key;
+	return *thread_key[p];
 }
 
 void free_write_req(uv_write_t *req) {
@@ -193,7 +193,7 @@ void after_read(uv_stream_t *client, ssize_t nread, const uv_buf_t *buf) {
 	int			nCurLen = nread;
 	char*		pCurPos = buf->base;
 	if (nread > 0) {
-		if (*mt_req == NULL || (unsigned int)(*mt_req) == 0xcdcdcdcd) {
+		if (*mt_req == NULL) {
 			*mt_req = (MT_req_t*)malloc(sizeof(MT_req_t));
 			(*mt_req)->nCurLen = 0;
 			(*mt_req)->client = (uv_tcp_t*)client;
@@ -249,6 +249,7 @@ void on_new_connection(uv_stream_t *server, int status) {			//two arguments, 1. 
 
 	uv_tcp_t *client = (uv_tcp_t*)malloc(sizeof(uv_tcp_t));
 	uv_tcp_init(loop, client);
+	client->data = NULL;
 	if (uv_accept(server, (uv_stream_t*)client) == 0) {
 		uv_read_start((uv_stream_t*)client, alloc_buffer, after_read);	//start read, have two callback function, 
 	}

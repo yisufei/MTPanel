@@ -217,7 +217,7 @@ void after_read(uv_stream_t *client, ssize_t nread, const uv_buf_t *buf) {
 
 	if (*pnCurLen == reqBuf->len) {
 		logger()->info("received a complete request, put it in work queue!");
-		uv_work_t * req = (uv_work_t*)malloc(sizeof uv_work_t);
+		uv_work_t * req = (uv_work_t*)malloc(sizeof (uv_work_t));
 		req->data = (void*)client;
 		uv_queue_work(loop, req, business_logic, after_business_logic);
 		free(buf->base);

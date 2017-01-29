@@ -7,11 +7,12 @@ package.path = package.path..';./lib/?.lua'
 package.path = package.path..';./lua/?.lua'
 
 --package.path = package.path..';../lib/?.dll'
-package.path = package.path..';./lib/?.dll'
+--package.path = package.path..';./lib/?.dll'
 
 require('basic')
 LMessageBase = require('LMessageBase')
 entryMap = require('business')
+MTSql = require('MTSql')
 
 function add(a, b)
     return a+b

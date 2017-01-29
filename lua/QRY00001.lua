@@ -24,7 +24,7 @@ function P:businessLogic(req)
     req['TranTime'] = '111404'
     req['TranSeq'] = 'seq001'
     req['RspCod'] = '0000'
-    req['RspMsg'] = 'succ'
+    req['RspMsg'] = 'succ2'
     
     local dbOp = MTSql:new()
     dbOp:open('./db/demo.db')

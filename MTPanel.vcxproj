@@ -74,14 +74,14 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>D:\data\Workspaces\libuv\uv\include;D:\data\Workspaces\log\log4cpp\include;C:\soft\Python27\include\;D:\tmp\tMpanel\tLoadpy;D:\usr\lua\lua-5.3.3\lua-5.3.3;D:\tmp\tMpanel\tLoadLua</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\data\Workspaces\libuv\uv\include;D:\data\Workspaces\log\log4cpp\include;C:\soft\Python27\include\;D:\tmp\tMpanel\tLoadpy;D:\usr\lua\lua-5.3.3-bin\lua53\lua53;D:\tmp\tMpanel\tLoadLua</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>D:\data\Workspaces\libuv\uv\Debug\lib;D:\data\Workspaces\log\log4cpp\msvc10\log4cppLIB\Debug;C:\soft\Python27\libs;D:\usr\lua\lua-5.3.3\Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>log4cppD.lib;libuv.lib;Psapi.lib;IPHLPAPI.lib;ws2_32.lib;Userenv.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;python27.lib;lua-5.3.3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\data\Workspaces\libuv\uv\Debug\lib;D:\data\Workspaces\log\log4cpp\msvc10\log4cppLIB\Debug;C:\soft\Python27\libs;D:\usr\lua\lua-5.3.3-bin\lua53\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>log4cppD.lib;libuv.lib;Psapi.lib;IPHLPAPI.lib;ws2_32.lib;Userenv.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;python27.lib;lua53.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -105,7 +105,6 @@
     <ClCompile Include="LoadLua.cpp" />
     <ClCompile Include="LoadPy.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="main2.cpp" />
     <ClCompile Include="MessageBase.cpp" />
   </ItemGroup>
   <ItemGroup>

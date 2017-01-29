@@ -82,6 +82,12 @@ typedef struct {
 
 #ifdef _MSC_VER
 void setLuaPath() {
+	printf("LUA_PATH:[%s]\n", getenv("LUA_PATH"));
+	printf("LUA_CPATH:[%s]\n", getenv("LUA_CPATH"));
+	char szLUA_CPATH[2048];
+	sprintf(szLUA_CPATH, "LUA_CPATH=%s", "./lib/?.dll");
+	putenv(szLUA_CPATH);
+	printf("LUA_CPATH:[%s]\n", getenv("LUA_CPATH"));
 }
 #else
 void setLuaPath(){
@@ -127,6 +133,7 @@ void echo_write(uv_write_t *req, int status) {
 	free_write_req(req);
 }
 
+#ifndef _MSC_VER
 CLoadLua* getLoadLua(const char * psFile) {
 	uv_key_t  key = get_uv_key(psFile);
 	CLoadLua * pLua = (CLoadLua*)uv_key_get(&key);
@@ -143,9 +150,21 @@ CLoadLua* getLoadLua(const char * psFile) {
 	
 	return pLua;
 }
+#else
+CLoadLua* getLoadLua(const char* psFile) {
+	CLoadLua * pLua =  new CLoadLua(psFile);
+	if (pLua->init() == false) {
+		delete pLua;
+		pLua = NULL;
+		logger()->error("%s:%d, pLua->init failed!", __FILE__, __LINE__);
+	}
+	return pLua;
+}
+#endif
 
 bool processByLua(CMessageBase * pMsg)
 {
+	//CLoadLua * pLua = getLoadLua("./lua/LuaMain.lua");
 	CLoadLua * pLua = getLoadLua("./lua/LuaMain.lua");
 	if (pLua == NULL) {
 		return false;
@@ -155,6 +174,9 @@ bool processByLua(CMessageBase * pMsg)
 	pLua->call("entry", pMsg->getMsgBuf(), rsp);
 	pMsg->setMsg(rsp);
 	logger()->info("after process, rsp msg:[%s]", pMsg->getMsgBuf());
+#ifdef _MSC_VER
+	delete pLua;
+#endif
 	return true;
 }
 

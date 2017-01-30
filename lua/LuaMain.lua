@@ -12,7 +12,6 @@ package.path = package.path..';./lua/?.lua'
 require('basic')
 LMessageBase = require('LMessageBase')
 entryMap = require('business')
-MTSql = require('MTSql')
 
 function add(a, b)
     return a+b

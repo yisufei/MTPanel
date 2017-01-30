@@ -82,12 +82,12 @@ typedef struct {
 
 #ifdef _MSC_VER
 void setLuaPath() {
-	printf("LUA_PATH:[%s]\n", getenv("LUA_PATH"));
-	printf("LUA_CPATH:[%s]\n", getenv("LUA_CPATH"));
+	//printf("LUA_PATH:[%s]\n", getenv("LUA_PATH"));
+	//printf("LUA_CPATH:[%s]\n", getenv("LUA_CPATH"));
 	char szLUA_CPATH[2048];
-	sprintf(szLUA_CPATH, "LUA_CPATH=%s", "./lib/?.dll");
+	sprintf(szLUA_CPATH, "LUA_CPATH=%s;%s", "./lib/?.dll", getenv("LUA_CPATH"));
 	putenv(szLUA_CPATH);
-	printf("LUA_CPATH:[%s]\n", getenv("LUA_CPATH"));
+	//printf("LUA_CPATH:[%s]\n", getenv("LUA_CPATH"));
 }
 #else
 void setLuaPath(){
@@ -194,6 +194,7 @@ void business_logic(uv_work_t *req) {
 	*mt_rsp = (MT_rsp_t*)malloc(sizeof(MT_rsp_t));
 	uv_buf_t * rspBuf = &((*mt_rsp)->buf);
 
+	//reqBuf->base[reqBuf->len] = 0;
 	CMessageBase * pMsg = new CMessageBase(reqBuf->base, reqBuf->len);
 	processByLua(pMsg);
 	char *p = (char*)malloc(pMsg->getMsgLen());
@@ -285,7 +286,7 @@ int main() {
 
 	bool bInitLogger = init_logger();			//init logger
 	if (bInitLogger == false) {
-		printf("init_logger error!\n");
+		printf("%s:%d, init_logger error!\n", __FILE__, __LINE__);
 		return -1;
 	}
 	logger()->info("init_logger succ!");
